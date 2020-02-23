@@ -4,10 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Songs"
-        android:gravity="center_vertical|center_horizontal"/>
+
+        <fragment
+            android:id="@+id/filters_fragment"
+            android:name="ca.uqam.ucycle.fragments.FiltersFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
 
 </LinearLayout>
