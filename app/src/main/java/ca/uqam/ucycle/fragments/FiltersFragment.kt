@@ -12,7 +12,9 @@ class FiltersFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_filters, container, false)
+    ): View? {
+        return inflater.inflate(R.layout.fragment_filters, container, false)
+    }
 
 
     companion object {

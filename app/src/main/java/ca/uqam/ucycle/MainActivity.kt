@@ -1,13 +1,14 @@
 package ca.uqam.ucycle
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.fragments.AlbumsFragment
 import ca.uqam.ucycle.fragments.ArtistsFragment
-import ca.uqam.ucycle.fragments.SongsFragment
+import ca.uqam.ucycle.fragments.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -27,10 +28,11 @@ class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_songs -> {
-                toolbar.title = "Songs"
-                val songsFragment = SongsFragment.newInstance()
-                openFragment(songsFragment)
+            R.id.navigation_home -> {
+                toolbar.title = "Home"
+                val homeFragment = HomeFragment.newInstance()
+
+                openFragment(homeFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_albums -> {
