@@ -1,8 +1,7 @@
 package ca.uqam.ucycle.fragments
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,7 @@ import ca.uqam.ucycle.itemDecoration.SpacesItemDecoration
 import ca.uqam.ucycle.models.Product
 import kotlinx.android.synthetic.main.fragment_list.*
 
-class ListFragment : Fragment() {
-
-
+class ListFragment : Fragment(), ListAdapter.ListListener {
 
     private val products = listOf(
         Product("Persian Cat", "https://i.picsum.photos/id/867/200/300.jpg"),
@@ -56,10 +53,13 @@ class ListFragment : Fragment() {
             addItemDecoration(decoration)
 
             // set the custom adapter to the RecyclerView
-            adapter = ListAdapter(products)
+            adapter = ListAdapter(products, this@ListFragment)
         }
     }
 
+    override fun onProductSelected(product: Product) {
+        Log.i("CLICK", product.title)
+    }
 
     companion object {
         fun newInstance(): ListFragment = ListFragment()

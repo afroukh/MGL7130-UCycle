@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ca.uqam.ucycle.R
+import ca.uqam.ucycle.adapters.ListAdapter
 import ca.uqam.ucycle.models.Product
 import com.bumptech.glide.Glide
 
@@ -23,6 +24,7 @@ class ProductViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     fun bind(product: Product) {
         mTitleView?.text = product.title
         Glide.with(itemView.context).load(product.photo).into(mPhotoView)
+        itemView.tag = product
     }
 
 }
