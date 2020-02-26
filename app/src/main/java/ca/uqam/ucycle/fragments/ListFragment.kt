@@ -1,5 +1,6 @@
 package ca.uqam.ucycle.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,23 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import ca.uqam.ucycle.Communicator
 import ca.uqam.ucycle.R
 import ca.uqam.ucycle.adapters.ListAdapter
 import ca.uqam.ucycle.itemDecoration.SpacesItemDecoration
 import ca.uqam.ucycle.models.Product
+import ca.uqam.ucycle.repositories.ProductRepository
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment(), ListAdapter.ListListener {
 
-    private val products = listOf(
-        Product("Persian Cat", "https://i.picsum.photos/id/867/200/300.jpg"),
-        Product("German Fisher", "https://i.picsum.photos/id/868/200/400.jpg"),
-        Product("Old Desk","https://i.picsum.photos/id/869/200/600.jpg"),
-        Product("Dryer", "https://i.picsum.photos/id/870/200/300.jpg"),
-        Product("Winter Tires", "https://i.picsum.photos/id/871/200/400.jpg"),
-        Product("Vintage Hour", "https://i.picsum.photos/id/872/200/300.jpg"),
-        Product("Baseball Cards", "https://i.picsum.photos/id/873/200/300.jpg")
-    )
+  private val products = mutableListOf<Product>()
+
+    lateinit var comm: Communicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +33,9 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        comm = activity as Communicator
         return inflater.inflate(R.layout.fragment_list, container, false)
+
     }
 
     // populate the views now that the layout has been inflated
@@ -52,6 +50,12 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
             val decoration = SpacesItemDecoration(16)
             addItemDecoration(decoration)
 
+            if (products.isNullOrEmpty()) {
+
+                val repo = ProductRepository()
+                products.addAll(repo.getAllProduct())
+            }
+
             // set the custom adapter to the RecyclerView
             adapter = ListAdapter(products, this@ListFragment)
         }
@@ -59,6 +63,9 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
     override fun onProductSelected(product: Product) {
         Log.i("CLICK", product.title)
+        val productDetailFragment = ProductDetailFragment()
+        comm.passDataCom(ProductDetailFragment.EXTRA_PRODUCT_TITLE, product.title, productDetailFragment)
+
     }
 
     companion object {

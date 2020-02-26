@@ -1,17 +1,23 @@
 package ca.uqam.ucycle
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.fragments.AlbumsFragment
 import ca.uqam.ucycle.fragments.ArtistsFragment
 import ca.uqam.ucycle.fragments.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Communicator {
+
+    override fun passDataCom(key: String, value: String, fragment: Fragment) {
+        val bundle = Bundle()
+        bundle.putString(key, value)
+        fragment.arguments = bundle
+        toolbar.title = value
+        openFragment(fragment)
+    }
 
     lateinit var toolbar: ActionBar
 
