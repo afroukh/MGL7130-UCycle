@@ -1,6 +1,7 @@
 package ca.uqam.ucycle.fragments
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -45,7 +46,9 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         product_list.apply {
             // set a StaggeredGridLayoutManager to handle Android
             // RecyclerView behavior
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            var spanCount = resources.getInteger( R.integer.gallery_columns)
+
+            layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
 
             val decoration = SpacesItemDecoration(16)
             addItemDecoration(decoration)
