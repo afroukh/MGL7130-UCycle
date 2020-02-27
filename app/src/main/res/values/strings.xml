@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">UCycle</string>
+    <string name="dummy_description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>
+    <string name="dummy_address">H2P 1X2, Montreal</string>
+    <string name="dummy_title">Old Desk</string>
+    <string name="dummy_time">1d</string>
+    <string name="dummy_owner_name">Paul</string>
+    <string name="dummy_send">ENVOYER</string>
+    <string name="dummy_message_hint">Message</string>
 </resources>

@@ -1,41 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="10">
 
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:layout_marginBottom="30dp">
 
-    <ImageView
-        android:id="@+id/product_main_photo"
+        <ImageView
+            android:id="@+id/product_main_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/fragmentBackground"
+            />
+
+        <ScrollView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="7">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TitleText"
+                    android:id="@+id/product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dummy_title"
+                    />
+
+                <TextView
+                    style="@style/InfosText"
+                    android:id="@+id/product_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_location_on_black_16dp"
+                    android:drawableStart="@drawable/ic_location_on_black_16dp"
+                    android:text="@string/dummy_address"/>
+
+                <TextView
+                    style="@style/InfosText"
+                    android:id="@+id/product_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_access_time_black_16dp"
+                    android:drawableStart="@drawable/ic_access_time_black_16dp"
+                    android:text="@string/dummy_time"/>
+
+                <TextView
+                    style="@style/DescriptionText"
+                    android:id="@+id/product_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dummy_description"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:background="@color/fragmentBackground"
-        />
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
 
-    <ScrollView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="7">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:orientation="horizontal">
             <TextView
-                android:id="@+id/product_title"
+                style="@style/OwnerText"
+                android:id="@+id/owner_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:text="@string/dummy_owner_name"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/dummy_message_hint"
+                android:inputType="text"
+                android:layout_weight="8"
                 />
 
-            <TextView
-                android:id="@+id/product_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/dummy_send"
+                android:layout_weight="2"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp">
+            </com.google.android.material.button.MaterialButton>
         </LinearLayout>
-    </ScrollView>
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
