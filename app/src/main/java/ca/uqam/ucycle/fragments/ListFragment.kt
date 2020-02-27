@@ -53,11 +53,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
             val decoration = SpacesItemDecoration(16)
             addItemDecoration(decoration)
 
-            if (products.isNullOrEmpty()) {
-
-                val repo = ProductRepository()
-                products.addAll(repo.getAllProduct())
-            }
+            products.addAll(ProductRepository.PRODUCTS)
 
             // set the custom adapter to the RecyclerView
             adapter = ListAdapter(products, this@ListFragment)

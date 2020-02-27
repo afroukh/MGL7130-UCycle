@@ -4,15 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.R
-import kotlinx.android.synthetic.main.fragment_product_detail.view.*
+import ca.uqam.ucycle.models.Product
+import ca.uqam.ucycle.repositories.ProductRepository
+import com.bumptech.glide.Glide
 
 class ProductDetailFragment : Fragment() {
 
-    private var mTitleView: TextView? = null
+    private lateinit var mTitleView: TextView
+    private lateinit var mPhotoView: ImageView
+    private lateinit var mDescriptionView: TextView
 
+
+    private val products = mutableListOf<Product>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,11 +27,21 @@ class ProductDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
+        products.addAll(ProductRepository.PRODUCTS)
 
         var rootView = inflater.inflate(R.layout.fragment_product_detail, container, false)
+        mTitleView = rootView.findViewById(R.id.product_title)
+        mPhotoView = rootView.findViewById(R.id.product_main_photo)
+        mDescriptionView = rootView.findViewById(R.id.product_description)
+
+
         var title = arguments?.getString(EXTRA_PRODUCT_TITLE)
-        rootView?.title_product?.text = title
+        val product = products.find { x -> x.title == title }
+
+        mTitleView.text = product?.title
+        Glide.with(rootView.context).load(product?.photo).into(mPhotoView)
+        mDescriptionView.text = product?.description
+
         return rootView
     }
 

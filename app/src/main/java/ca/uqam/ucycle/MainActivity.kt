@@ -27,8 +27,17 @@ class MainActivity : AppCompatActivity(), Communicator {
 
         toolbar = supportActionBar!!
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
-
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        //keep actual fragment when rotating
+        if (savedInstanceState == null) {
+            //start home fragment
+            toolbar.title = "Home"
+            val homeFragment = HomeFragment.newInstance()
+
+            openFragment(homeFragment)
+        }
+
 
     }
 
