@@ -3,5 +3,6 @@
     <dimen name="design_bottom_navigation_item_max_width" tools:override="true">300dp</dimen>
     <dimen name="design_bottom_navigation_active_item_max_width" tools:override="true">300dp</dimen>
     <integer name="gallery_columns">2</integer>
-    <dimen name="owner_margin_bottom" tools:override="true">12dp</dimen>
+    <dimen name="owner_margin_bottom">12dp</dimen>
+    <dimen name="img_layout_height">300dp</dimen>
 </resources>

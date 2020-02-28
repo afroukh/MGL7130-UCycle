@@ -4,4 +4,5 @@
     <dimen name="design_bottom_navigation_active_item_max_width" tools:override="true">600dp</dimen>
     <integer name="gallery_columns">3</integer>
     <dimen name="owner_margin_bottom" tools:override="true">8dp</dimen>
+    <dimen name="img_layout_height"  tools:override="true">150dp</dimen>
 </resources>

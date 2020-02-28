@@ -5,23 +5,24 @@
     android:weightSum="10">
 
     <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="10"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="60dp">
 
         <ImageView
             android:id="@+id/product_main_photo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:background="@color/fragmentBackground"
-            />
+            android:layout_height="@dimen/img_layout_height"
+            android:layout_weight="4"
+
+            android:background="@color/fragmentBackground"/>
 
         <ScrollView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_weight="7">
+            android:layout_weight="6">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,6 +55,15 @@
                     android:text="@string/dummy_time"/>
 
                 <TextView
+                    style="@style/OwnerText"
+                    android:id="@+id/owner_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_person_black_16dp"
+                    android:drawableStart="@drawable/ic_person_black_16dp"
+                    android:text="@string/dummy_owner_name"/>
+
+                <TextView
                     style="@style/DescriptionText"
                     android:id="@+id/product_description"
                     android:layout_width="match_parent"
@@ -63,30 +73,12 @@
             </LinearLayout>
         </ScrollView>
 
-
-
-
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/OwnerText"
-                android:id="@+id/owner_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawableStart="@drawable/ic_person_black_24dp"
-                android:text="@string/dummy_owner_name"/>
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"

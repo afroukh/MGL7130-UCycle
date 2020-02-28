@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.R
@@ -17,7 +18,7 @@ class ProductDetailFragment : Fragment() {
     private lateinit var mTitleView: TextView
     private lateinit var mPhotoView: ImageView
     private lateinit var mDescriptionView: TextView
-
+    private var isImageFitToScreen: Boolean = false
 
     private val products = mutableListOf<Product>()
 
@@ -41,6 +42,19 @@ class ProductDetailFragment : Fragment() {
         mTitleView.text = product?.title
         Glide.with(rootView.context).load(product?.photo).into(mPhotoView)
         mDescriptionView.text = product?.description
+
+//        mPhotoView.setOnClickListener{
+//            if (isImageFitToScreen) {
+//                isImageFitToScreen = false
+//                mPhotoView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, R.dimen.img_layout_height)
+//                mPhotoView.adjustViewBounds = true
+//            } else {
+//                isImageFitToScreen = true
+//                mPhotoView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+//                mPhotoView.scaleType = ImageView.ScaleType.FIT_XY
+//            }
+//        }
+
 
         return rootView
     }

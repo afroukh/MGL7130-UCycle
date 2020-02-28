@@ -21,10 +21,8 @@
         <item name="android:layout_marginBottom">2dp</item>
     </style>
 
-    <style name="OwnerText" parent="TitleText">
-        <item name="android:textSize">14sp</item>
+    <style name="OwnerText" parent="InfosText">
         <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_marginBottom">@dimen/owner_margin_bottom</item>
     </style>
 
     <style name="DescriptionText" parent="InfosText">
