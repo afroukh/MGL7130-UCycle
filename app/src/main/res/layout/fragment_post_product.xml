@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragmentBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@color/fragmentBackground">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:background="@drawable/ic_camera_alt_black_24dp">
+            </ImageView>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/product_title_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/product_title"
+            android:inputType="text"
+            android:layout_margin="20dp"/>
+
+        <EditText
+            android:id="@+id/product_description_input"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="@string/product_description"
+            android:inputType="text|textMultiLine"
+            android:layout_margin="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <EditText
+                android:id="@+id/product_localisation_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/product_localisation"
+                android:inputType="text"
+                android:layout_margin="20dp"
+                android:layout_weight="8"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Round Button"
+                android:background="@drawable/round_button"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
