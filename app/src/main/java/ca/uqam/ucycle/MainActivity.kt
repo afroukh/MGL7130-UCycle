@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.fragments.AlbumsFragment
 import ca.uqam.ucycle.fragments.ArtistsFragment
 import ca.uqam.ucycle.fragments.HomeFragment
+import ca.uqam.ucycle.fragments.PostProductFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), Communicator {
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity(), Communicator {
         if (savedInstanceState == null) {
             //start home fragment
             toolbar.title = "Home"
-            val homeFragment = HomeFragment.newInstance()
+            val homeFragment = PostProductFragment.newInstance()
 
             openFragment(homeFragment)
         }
