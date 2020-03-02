@@ -25,70 +25,81 @@
             </ImageView>
         </LinearLayout>
     </RelativeLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="10">
+
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="5">
         <EditText
             android:id="@+id/product_title_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/PostProductInputText"
             android:hint="@string/product_title"
-            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
             android:inputType="text"
-          />
+            />
 
         <EditText
             android:id="@+id/product_description_input"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
             android:hint="@string/product_description"
             style="@style/PostProductInputText"
-            android:inputType="text|textMultiLine" />
+            android:inputType="text|textMultiLine"
+            />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <EditText
-                android:id="@+id/product_localisation_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/product_localisation"
-                android:inputType="text"
-                style="@style/PostProductInputText"
-                android:layout_marginTop="20dp"
-                android:layout_weight="8"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="56dp"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                app:icon="@drawable/ic_location_on_black_16dp"
-                android:layout_gravity="center"
-                app:iconSize="24dp"
-                app:iconPadding="0dp"
-                android:insetLeft="4dp"
-                android:insetTop="0dp"
-                android:insetRight="4dp"
-                android:insetBottom="0dp"
-                app:shapeAppearanceOverlay="@style/buttonRounded"
-                />
-        </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/dummy_send">
-
-        </com.google.android.material.button.MaterialButton>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/product_localisation_input"
+            style="@style/PostProductInputText"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="200dp"
+            android:hint="@string/product_localisation"
+            android:inputType="text" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:insetLeft="4dp"
+            android:insetTop="0dp"
+            android:insetRight="4dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/ic_location_on_black_16dp"
+            app:iconPadding="0dp"
+            app:iconSize="24dp"
+            app:shapeAppearanceOverlay="@style/buttonRounded" />
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/dummy_send">
+
+    </com.google.android.material.button.MaterialButton>
 </LinearLayout>

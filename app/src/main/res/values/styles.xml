@@ -38,7 +38,7 @@
        <item name="android:lineSpacingExtra">2dp</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.MyApp.Button.Rounded" parent="">
+    <style name="buttonRounded" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
