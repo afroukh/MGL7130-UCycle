@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), Communicator {
         if (savedInstanceState == null) {
             //start home fragment
             toolbar.title = "Home"
-            val homeFragment = HomeFragment.newInstance()
+            val homeFragment = PostProductFragment.newInstance()
 
             openFragment(homeFragment)
         }
