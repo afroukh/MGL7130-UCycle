@@ -10,4 +10,7 @@
     <string name="product_title">Title</string>
     <string name="product_description">Description</string>
     <string name="product_localisation">Localisation</string>
+    <string name="type_city">Type city</string>
+    <string name="choose_category">Category</string>
+
 </resources>

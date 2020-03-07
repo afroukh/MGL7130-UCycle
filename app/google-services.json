@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "686090163406",
+    "firebase_url": "https://ucycle-70361.firebaseio.com",
+    "project_id": "ucycle-70361",
+    "storage_bucket": "ucycle-70361.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686090163406:android:d307f806b48cab4d92ec9f",
+        "android_client_info": {
+          "package_name": "ca.uqam.ucycle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686090163406-k4on5cdmqm2lpa217rob9enmudtcgv6l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.uqam.ucycle",
+            "certificate_hash": "df07ceac140cc7c67bf42ad0795f32360e024bed"
+          }
+        },
+        {
+          "client_id": "686090163406-e68ccchcf1a2errtnvldmp8tfdsv6ral.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq055UnQHVJp02R9n16o9ffs-SNV8jrtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686090163406-e68ccchcf1a2errtnvldmp8tfdsv6ral.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

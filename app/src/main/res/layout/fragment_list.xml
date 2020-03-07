@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent">
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_add_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
