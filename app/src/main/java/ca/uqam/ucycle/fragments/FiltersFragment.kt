@@ -1,6 +1,7 @@
 package ca.uqam.ucycle.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +59,13 @@ class FiltersFragment : Fragment() {
         chip.text = category.name
         chip.isClickable = true
         chip.isCheckable = true
+        chip.setOnClickListener {
+//            if (chip.text == "All") {
+//
+//            }
 
+            Log.i("CHIPS", chip.text as String?)
+        }
         return chip
     }
 
