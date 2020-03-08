@@ -39,29 +39,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All" />
+<!--            <com.google.android.material.chip.Chip-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="All" />-->
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pets" />
+<!--            <com.google.android.material.chip.Chip-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Pets" />-->
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Electronics" />
+<!--            <com.google.android.material.chip.Chip-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Electronics" />-->
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Furniture" />
+<!--            <com.google.android.material.chip.Chip-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Furniture" />-->
         </com.google.android.material.chip.ChipGroup>
 
 

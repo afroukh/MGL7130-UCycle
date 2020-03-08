@@ -20,6 +20,8 @@ import ca.uqam.ucycle.itemDecoration.SpacesItemDecoration
 import ca.uqam.ucycle.models.Product
 import ca.uqam.ucycle.repositories.ProductRepository
 import ca.uqam.ucycle.viewModels.CategoriesViewModel
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment(), ListAdapter.ListListener {
@@ -27,7 +29,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
   private val products = mutableListOf<Product>()
 
     lateinit var comm: Communicator
-    lateinit var viewModel: CategoriesViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,6 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         savedInstanceState: Bundle?
     ): View? {
         comm = activity as Communicator
-        viewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         return inflater.inflate(R.layout.fragment_list, container, false)
 
     }
@@ -70,12 +71,6 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.fetchCategories()
-        viewModel.categories.observe(viewLifecycleOwner, Observer {
-            it.forEach { cat ->
-                Log.i("CATEGORIES", cat.id + " " + cat.name)
-            }
-        })
 
         button_add_product.setOnClickListener {
 
