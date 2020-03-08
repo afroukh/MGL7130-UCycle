@@ -8,13 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ca.uqam.ucycle.Communicator
 import ca.uqam.ucycle.R
 import ca.uqam.ucycle.adapters.ListAdapter
+import ca.uqam.ucycle.data.Category
 import ca.uqam.ucycle.itemDecoration.SpacesItemDecoration
 import ca.uqam.ucycle.models.Product
 import ca.uqam.ucycle.repositories.ProductRepository
+import ca.uqam.ucycle.viewModels.CategoriesViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment(), ListAdapter.ListListener {
@@ -22,6 +27,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
   private val products = mutableListOf<Product>()
 
     lateinit var comm: Communicator
+    lateinit var viewModel: CategoriesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +41,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         savedInstanceState: Bundle?
     ): View? {
         comm = activity as Communicator
+        viewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         return inflater.inflate(R.layout.fragment_list, container, false)
 
     }
@@ -59,6 +66,26 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
             adapter = ListAdapter(products, this@ListFragment)
         }
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModel.fetchCategories()
+        viewModel.categories.observe(viewLifecycleOwner, Observer {
+            it.forEach { cat ->
+                Log.i("CATEGORIES", cat.id + " " + cat.name)
+            }
+        })
+
+        button_add_product.setOnClickListener {
+
+            val transaction = activity!!.supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.container, PostProductFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
+            }
+        }
+
 
     override fun onProductSelected(product: Product) {
         Log.i("CLICK", product.title)

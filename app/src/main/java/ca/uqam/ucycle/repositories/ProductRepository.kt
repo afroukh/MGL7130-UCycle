@@ -1,5 +1,5 @@
 package ca.uqam.ucycle.repositories
-import ca.uqam.ucycle.models.Category
+import ca.uqam.ucycle.data.Category
 import ca.uqam.ucycle.models.Product
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
