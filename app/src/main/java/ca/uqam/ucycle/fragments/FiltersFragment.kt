@@ -13,12 +13,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ca.uqam.ucycle.R
 import ca.uqam.ucycle.data.Category
-import ca.uqam.ucycle.data.City
 import ca.uqam.ucycle.viewModels.CategoriesViewModel
 import ca.uqam.ucycle.viewModels.CitiesViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import kotlin.concurrent.thread
+
 
 
 class FiltersFragment : Fragment() {
@@ -38,6 +37,7 @@ class FiltersFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val adapter = ArrayAdapter<String>(activity,  android.R.layout.simple_list_item_1)
 
 //        listOf(
 //            City(name = "Montreal"),
@@ -81,7 +81,7 @@ class FiltersFragment : Fragment() {
             citiesViewModel.fetchCities()
         }
 
-        val adapter = ArrayAdapter<String>(activity,  android.R.layout.simple_list_item_1)
+
 
         citiesViewModel.cities.observe(viewLifecycleOwner, Observer {
             it.forEach { cit ->

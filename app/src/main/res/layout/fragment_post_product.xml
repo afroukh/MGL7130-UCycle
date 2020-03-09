@@ -42,12 +42,12 @@
             android:inputType="text"
           />
 
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/cities"
+        <AutoCompleteTextView
+            android:id="@+id/post_category_autocomplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/PostProductInputText"
-            android:hint="@string/type_city"
+            android:hint="@string/choose_category"
             android:inputType="text"/>
 
         <EditText
