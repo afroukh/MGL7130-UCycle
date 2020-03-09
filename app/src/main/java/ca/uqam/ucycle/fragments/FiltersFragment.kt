@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -31,7 +32,6 @@ class FiltersFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 //        listOf(
-//            Category(name = "All"),
 //            Category(name = "Pets"),
 //            Category(name = "Electronic"),
 //            Category(name = "Furniture"),
@@ -41,30 +41,30 @@ class FiltersFragment : Fragment() {
 //        }
 
 
-
         var chipGroup = view?.findViewById<ChipGroup>(R.id.category_chip_group)
+        chipGroup!!.isSingleSelection = true
 
         viewModel.fetchCategories()
         viewModel.categories.observe(viewLifecycleOwner, Observer {
             it.forEach { cat ->
-                chipGroup?.addView(createChip(cat))
+                chipGroup.addView(createChip(cat))
             }
         })
 
 
+
     }
+
+
 
     private fun createChip(category: Category): Chip {
         val chip = Chip(context)
         chip.text = category.name
+        chip.id = ViewCompat.generateViewId()
         chip.isClickable = true
         chip.isCheckable = true
         chip.setOnClickListener {
-//            if (chip.text == "All") {
-//
-//            }
-
-            Log.i("CHIPS", chip.text as String?)
+            Log.i("CHIPS", chip.text as String? + " | " + chip.id)
         }
         return chip
     }
