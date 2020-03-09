@@ -5,26 +5,34 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ca.uqam.ucycle.R
 import ca.uqam.ucycle.data.Category
+import ca.uqam.ucycle.data.City
 import ca.uqam.ucycle.viewModels.CategoriesViewModel
+import ca.uqam.ucycle.viewModels.CitiesViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlin.concurrent.thread
+
 
 class FiltersFragment : Fragment() {
 
-    lateinit var viewModel: CategoriesViewModel
+    private lateinit var categoriesViewModel: CategoriesViewModel
+    private lateinit var citiesViewModel: CitiesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
+        categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
+        citiesViewModel = ViewModelProviders.of(this).get(CitiesViewModel::class.java)
         return inflater.inflate(R.layout.fragment_filters, container, false)
     }
 
@@ -32,29 +40,57 @@ class FiltersFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 //        listOf(
+//            City(name = "Montreal"),
+//                    City(name = "Toronto"),
+//                    City(name = "Calgary"),
+//                    City(name = "Vancouver"),
+//                    City(name = "Ottawa"),
+//                    City(name = "Quebec"),
+//                    City(name = "Saskatchewan"),
+//                    City(name = "Halifax"),
+//                    City(name = "Moncton"),
+//                    City(name = "Saint-John")
+//        ).forEach {
+//            citiesViewModel.addCity(it)
+//        }
+
+//        listOf(
 //            Category(name = "Pets"),
 //            Category(name = "Electronic"),
 //            Category(name = "Furniture"),
 //            Category(name = "Vintage")
 //        ).forEach {
-//            viewModel.addCategory(it)
+//            categoriesViewModel.addCategory(it)
 //        }
 
 
         var chipGroup = view?.findViewById<ChipGroup>(R.id.category_chip_group)
         chipGroup!!.isSingleSelection = true
 
-        if (viewModel.categories.value == null) {
-            viewModel.fetchCategories()
+        if (categoriesViewModel.categories.value == null) {
+            categoriesViewModel.fetchCategories()
         }
 
-        viewModel.categories.observe(viewLifecycleOwner, Observer {
+        categoriesViewModel.categories.observe(viewLifecycleOwner, Observer {
             it.forEach { cat ->
                 chipGroup.addView(createChip(cat))
             }
         })
 
+        if (citiesViewModel.cities.value == null) {
+            citiesViewModel.fetchCities()
+        }
 
+        val adapter = ArrayAdapter<String>(activity,  android.R.layout.simple_list_item_1)
+
+        citiesViewModel.cities.observe(viewLifecycleOwner, Observer {
+            it.forEach { cit ->
+                adapter.add(cit.name.toString())
+            }
+        })
+
+        var actv = view?.findViewById<AutoCompleteTextView>(R.id.cities)
+        actv?.setAdapter(adapter)
 
     }
 
