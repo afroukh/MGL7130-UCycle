@@ -44,7 +44,10 @@ class FiltersFragment : Fragment() {
         var chipGroup = view?.findViewById<ChipGroup>(R.id.category_chip_group)
         chipGroup!!.isSingleSelection = true
 
-        viewModel.fetchCategories()
+        if (viewModel.categories.value == null) {
+            viewModel.fetchCategories()
+        }
+
         viewModel.categories.observe(viewLifecycleOwner, Observer {
             it.forEach { cat ->
                 chipGroup.addView(createChip(cat))
