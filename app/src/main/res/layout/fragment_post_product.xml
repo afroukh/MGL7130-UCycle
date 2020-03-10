@@ -76,6 +76,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="56dp"
+                android:id="@+id/btn_localisation"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 app:icon="@drawable/ic_location_on_black_16dp"
