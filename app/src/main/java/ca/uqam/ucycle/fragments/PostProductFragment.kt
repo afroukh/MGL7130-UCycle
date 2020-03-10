@@ -10,14 +10,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ca.uqam.ucycle.R
+import ca.uqam.ucycle.data.Category
 import ca.uqam.ucycle.viewModels.CategoriesViewModel
 import com.google.android.material.button.MaterialButton
 
@@ -28,6 +26,8 @@ class PostProductFragment : Fragment() {
     private lateinit var imageProduct: ImageView
     private lateinit var btnLocalisation : MaterialButton
     private lateinit var filePath: Uri
+    private var categoriesHashMap :MutableMap<String, String> = mutableMapOf()
+    private lateinit var categoryId: String
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,9 +39,8 @@ class PostProductFragment : Fragment() {
         imageProduct = rootView.findViewById(R.id.post_product_image)
         btnLocalisation = rootView.findViewById(R.id.btn_localisation)
 
-//        imageProduct.setOnClickListener(this)
 
-        btnLocalisation.setOnClickListener {
+        imageProduct.setOnClickListener {
             showFileChooser()
         }
 
@@ -61,11 +60,24 @@ class PostProductFragment : Fragment() {
             it.dropWhile { x -> x.name == "All" }
                 .forEach { cat ->
                 adapter.add(cat.name.toString())
+                    categoriesHashMap[cat.name.toString()] = cat.id.toString()
             }
         })
 
-        var autoCompleteCities = view?.findViewById<AutoCompleteTextView>(R.id.post_category_autocomplete)
-        autoCompleteCities?.setAdapter(adapter)
+        var autoCompleteCategories = view?.findViewById<AutoCompleteTextView>(R.id.post_category_autocomplete)
+        autoCompleteCategories?.setAdapter(adapter)
+
+
+        autoCompleteCategories!!.onItemClickListener = AdapterView.OnItemClickListener{
+                    parent, _, position, _ ->
+                var selectedCategoryName = parent.getItemAtPosition(position)
+                categoryId = categoriesHashMap[selectedCategoryName]!!
+                Log.i("Founded Category", categoryId)
+            }
+
+
+
+
     }
 
 

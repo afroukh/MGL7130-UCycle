@@ -9,5 +9,6 @@ data class Product(
     var title: String? = null,
     var description: String? = null,
     var localisation: String? = null,
-    var urlImage: String? = null
+    var urlImage: String? = null,
+    var categoryId: String? = null
 )
