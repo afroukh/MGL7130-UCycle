@@ -27,7 +27,7 @@ class CategoriesViewModel : ViewModel() {
 
         val dbCategories = FirebaseDatabase.getInstance().getReference(NODE_CATEGORIES)
         category.id = dbCategories.push().key
-        dbCategories.child(category.id!!).setValue(category)
+            dbCategories.child(category.id!!).setValue(category)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     _result.value = null

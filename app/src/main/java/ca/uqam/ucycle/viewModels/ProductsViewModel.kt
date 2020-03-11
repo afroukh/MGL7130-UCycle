@@ -3,6 +3,7 @@ package ca.uqam.ucycle.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ca.uqam.ucycle.data.NODE_CATEGORIES
 import ca.uqam.ucycle.data.Product
 import ca.uqam.ucycle.data.NODE_PRODUCTS
 import com.google.firebase.database.DataSnapshot
@@ -25,7 +26,7 @@ class ProductsViewModel : ViewModel() {
 
     fun addProduct(product: Product, categoryId: String) {
 
-        val dbProducts = FirebaseDatabase.getInstance().getReference(NODE_PRODUCTS)
+        val dbProducts = FirebaseDatabase.getInstance().getReference(NODE_CATEGORIES).child(categoryId).child(NODE_PRODUCTS)
         product.id = dbProducts.push().key
         dbProducts.child(product.id!!).setValue(product)
             .addOnCompleteListener {
@@ -38,7 +39,7 @@ class ProductsViewModel : ViewModel() {
     }
 
     fun fetchProducts() {
-        dbProducts.addListenerForSingleValueEvent(object : ValueEventListener {
+            dbProducts.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -57,4 +58,5 @@ class ProductsViewModel : ViewModel() {
 
         })
     }
+
 }
