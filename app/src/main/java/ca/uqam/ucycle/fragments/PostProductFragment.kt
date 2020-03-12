@@ -1,6 +1,7 @@
 package ca.uqam.ucycle.fragments
 
 import android.app.Activity.RESULT_OK
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -35,10 +36,10 @@ class PostProductFragment : Fragment() {
     private lateinit var productDescriptionInput: EditText
     private lateinit var productLocalisationInput: EditText
     private lateinit var imageProduct: ImageView
-    private lateinit var btnLocalisation : MaterialButton
+    private lateinit var btnLocalisation: MaterialButton
     private lateinit var btnSendProduct: MaterialButton
     private lateinit var filePath: Uri
-    private var categoriesHashMap :MutableMap<String, String> = mutableMapOf()
+    private var categoriesHashMap: MutableMap<String, String> = mutableMapOf()
     private var categoryId: String = ""
 
 
@@ -68,7 +69,7 @@ class PostProductFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val adapter = ArrayAdapter<String>(activity,  android.R.layout.simple_list_item_1)
+        val adapter = ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1)
 
         if (categoriesViewModel.categories.value == null) {
             categoriesViewModel.fetchCategories()
@@ -77,17 +78,17 @@ class PostProductFragment : Fragment() {
         categoriesViewModel.categories.observe(viewLifecycleOwner, Observer {
             it.dropWhile { x -> x.name == "All" }
                 .forEach { cat ->
-                adapter.add(cat.name.toString())
+                    adapter.add(cat.name.toString())
                     categoriesHashMap[cat.name.toString()] = cat.id.toString()
-            }
+                }
         })
 
         autoCompleteCategories = view!!.findViewById(R.id.post_category_autocomplete)
         autoCompleteCategories.setAdapter(adapter)
 
 
-        autoCompleteCategories.onItemClickListener = AdapterView.OnItemClickListener{
-                    parent, _, position, _ ->
+        autoCompleteCategories.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
                 var selectedCategoryName = parent.getItemAtPosition(position)
                 categoryId = categoriesHashMap[selectedCategoryName]!!
                 Log.i("Founded Category", categoryId)
@@ -99,29 +100,49 @@ class PostProductFragment : Fragment() {
         }
 
         btnSendProduct.setOnClickListener {
-            val product = Product(title = productTitleInput.text.toString(),
+            val product = Product(
+                title = productTitleInput.text.toString(),
                 categoryId = categoryId,
                 description = productDescriptionInput.text.toString(),
-                localisation = productLocalisationInput.text.toString())
-            productsViewModel.addProduct(product, categoryId)
+                localisation = productLocalisationInput.text.toString(),
+                urlImage = ""
+            )
+            productsViewModel.addProduct(product, categoryId, filePath)
+
+            productsViewModel.result.observe(viewLifecycleOwner, Observer {
+                if (it == null) {
+                    Toast.makeText(
+                        activity!!.applicationContext,
+                        "Added successfully",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                } else {
+                    Toast.makeText(activity!!.applicationContext, it.message, Toast.LENGTH_LONG)
+                        .show()
+
+                }
+            })
+
         }
-
-
     }
-
 
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data?.data != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data?.data != null) {
             filePath = data.data!!
-            var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, filePath)
+            var bitmap: Bitmap =
+                MediaStore.Images.Media.getBitmap(activity?.contentResolver, filePath)
             imageProduct.setImageBitmap(bitmap)
             imageProduct.background = null
-            var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-            layoutParams.setMargins(0,0,0,0)
+            var layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            layoutParams.setMargins(0, 0, 0, 0)
             imageProduct.layoutParams = layoutParams
         }
     }
@@ -131,6 +152,7 @@ class PostProductFragment : Fragment() {
         intent.type = "image/*"
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
+
 
     companion object {
         fun newInstance(): PostProductFragment = PostProductFragment()
