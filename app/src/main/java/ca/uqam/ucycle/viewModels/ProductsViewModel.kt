@@ -23,6 +23,9 @@ import java.lang.Exception
 class ProductsViewModel : ViewModel() {
 
     private val dbProducts = FirebaseDatabase.getInstance().getReference(NODE_PRODUCTS)
+    private val dbCategories = FirebaseDatabase.getInstance().getReference(NODE_CATEGORIES)
+
+
     private val storageRef: StorageReference =
         FirebaseStorage.getInstance().getReference(NODE_IMAGES)
 

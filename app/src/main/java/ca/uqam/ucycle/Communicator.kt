@@ -5,4 +5,6 @@ import androidx.fragment.app.Fragment
 interface Communicator {
 //    fun passDataCom(title: String)
     fun passDataCom(key: String, value: String, fragment: Fragment)
+    fun passDataCom2(key: String, value: String, fragment: Fragment)
+
 }

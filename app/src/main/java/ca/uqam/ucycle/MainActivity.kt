@@ -19,6 +19,12 @@ class MainActivity : AppCompatActivity(), Communicator {
         toolbar.title = value
         openFragment(fragment)
     }
+    override fun passDataCom2(key: String, value: String, fragment: Fragment) {
+        val bundle = Bundle()
+        bundle.putString(key, value)
+        fragment.arguments = bundle
+        openFragment2(fragment)
+    }
 
     lateinit var toolbar: ActionBar
 
@@ -74,5 +80,10 @@ class MainActivity : AppCompatActivity(), Communicator {
         transaction.commit()
     }
 
-
+    private fun openFragment2(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.collection_wrapper, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
 }

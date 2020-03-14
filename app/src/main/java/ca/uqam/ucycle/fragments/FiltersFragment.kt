@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import ca.uqam.ucycle.Communicator
 import ca.uqam.ucycle.R
 import ca.uqam.ucycle.data.Category
 import ca.uqam.ucycle.viewModels.CategoriesViewModel
@@ -24,14 +25,21 @@ class FiltersFragment : Fragment() {
 
     private lateinit var categoriesViewModel: CategoriesViewModel
     private lateinit var citiesViewModel: CitiesViewModel
+    lateinit var comm: Communicator
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        comm = activity as Communicator
+
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         citiesViewModel = ViewModelProviders.of(this).get(CitiesViewModel::class.java)
+
+
+
         return inflater.inflate(R.layout.fragment_filters, container, false)
     }
 
@@ -74,6 +82,7 @@ class FiltersFragment : Fragment() {
         categoriesViewModel.categories.observe(viewLifecycleOwner, Observer {
             it.forEach { cat ->
                 chipGroup.addView(createChip(cat))
+//                categoriesHashMap[cat.name.toString()] = cat.id.toString()
             }
         })
 
@@ -100,16 +109,22 @@ class FiltersFragment : Fragment() {
         val chip = Chip(context)
         chip.text = category.name
         chip.id = ViewCompat.generateViewId()
+        chip.tag = category.id
         chip.isClickable = true
         chip.isCheckable = true
         chip.setOnClickListener {
-            Log.i("CHIPS", chip.text as String? + " | " + chip.id)
+            Log.i("CHIPS", chip.text as String? + " | " + chip.id + "|" + chip.tag)
+
+                val listFragment = ListFragment()
+                comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY_ID, chip.tag.toString(), listFragment)
+
         }
         return chip
     }
 
     companion object {
         fun newInstance(): FiltersFragment = FiltersFragment()
+        var categoriesHashMap: MutableMap<String, String> = mutableMapOf()
     }
 
 

@@ -2,11 +2,13 @@ package ca.uqam.ucycle.fragments
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,11 +24,13 @@ import ca.uqam.ucycle.repositories.ProductRepository
 import ca.uqam.ucycle.viewModels.CategoriesViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment(), ListAdapter.ListListener {
 
-  private val products = mutableListOf<Product>()
+    private val products = mutableListOf<Product>()
+    private var categories = mutableListOf<Category>()
 
     lateinit var comm: Communicator
 
@@ -43,6 +47,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         savedInstanceState: Bundle?
     ): View? {
         comm = activity as Communicator
+
         return inflater.inflate(R.layout.fragment_list, container, false)
 
     }
@@ -50,6 +55,15 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
     // populate the views now that the layout has been inflated
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var categoryId = arguments?.getString(EXTRA_SELECTED_CATEGORY_ID)
+        if (categoryId == null) {
+            Log.i("CHECKED CATEGORY ID", "All")
+        } else {
+            Log.i("CHECKED CATEGORY ID", categoryId)
+        }
+
+
         // RecyclerView node initialized here
         product_list.apply {
             // set a StaggeredGridLayoutManager to handle Android
@@ -72,6 +86,8 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         super.onActivityCreated(savedInstanceState)
 
 
+
+
         button_add_product.setOnClickListener {
 
             val transaction = activity!!.supportFragmentManager.beginTransaction()
@@ -91,6 +107,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
     companion object {
         fun newInstance(): ListFragment = ListFragment()
+        const val EXTRA_SELECTED_CATEGORY_ID= "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY_ID"
     }
 
 }
