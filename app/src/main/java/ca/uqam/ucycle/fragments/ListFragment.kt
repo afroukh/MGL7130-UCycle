@@ -71,6 +71,8 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
         var categoryId = if (arguments?.getString(EXTRA_SELECTED_CATEGORY_ID) == null)  "All" else arguments?.getString(EXTRA_SELECTED_CATEGORY_ID)
         Log.i("categoryId", categoryId)
+
+
         productsViewModel.fetchProducts(categoryId!!)
 
 

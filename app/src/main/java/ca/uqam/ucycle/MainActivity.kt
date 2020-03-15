@@ -84,21 +84,10 @@ class MainActivity : AppCompatActivity(), Communicator {
     }
 
     private fun openFragment2(fragment: Fragment) {
-       var frameLayout = findViewById<FrameLayout>(R.id.collection_wrapper)
-
 
         val transaction = supportFragmentManager.beginTransaction()
-
-
-       //     transaction.add(R.id.collection_wrapper, fragment)
-
-            transaction.replace(R.id.collection_wrapper, fragment)
-
-
-
-
-
-       // transaction.addToBackStack(null)
+        transaction.replace(R.id.collection_wrapper, fragment)
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 }
