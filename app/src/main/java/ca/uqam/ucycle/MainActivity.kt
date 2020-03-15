@@ -86,7 +86,13 @@ class MainActivity : AppCompatActivity(), Communicator {
     private fun openFragment2(fragment: Fragment) {
 
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.collection_wrapper, fragment)
+
+        var frame = findViewById<FrameLayout>(R.id.collection_wrapper)
+        if (supportFragmentManager.findFragmentById(R.id.collection_wrapper) != null) {
+            frame.removeAllViews()
+        }
+
+        transaction.add(R.id.collection_wrapper, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
