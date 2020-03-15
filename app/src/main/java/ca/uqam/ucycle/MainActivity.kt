@@ -7,6 +7,8 @@ import androidx.appcompat.app.ActionBar
 import androidx.core.view.isEmpty
 import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
+import ca.uqam.ucycle.data.Category
+import ca.uqam.ucycle.data.Product
 import ca.uqam.ucycle.fragments.AlbumsFragment
 import ca.uqam.ucycle.fragments.ArtistsFragment
 import ca.uqam.ucycle.fragments.HomeFragment
@@ -15,16 +17,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), Communicator {
 
-    override fun passDataCom(key: String, value: String, fragment: Fragment) {
+    override fun passDataCom(key: String, value: Product, fragment: Fragment) {
         val bundle = Bundle()
-        bundle.putString(key, value)
+        bundle.putParcelable(key, value)
         fragment.arguments = bundle
-        toolbar.title = value
+        toolbar.title = value.title
         openFragment(fragment)
     }
-    override fun passDataCom2(key: String, value: String, fragment: Fragment) {
+    override fun passDataCom2(key: String, value: Category, fragment: Fragment) {
         val bundle = Bundle()
-        bundle.putString(key, value)
+        bundle.putParcelable(key, value)
         fragment.arguments = bundle
         openFragment2(fragment)
     }

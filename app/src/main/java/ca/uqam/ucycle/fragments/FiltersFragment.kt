@@ -64,7 +64,7 @@ class FiltersFragment : Fragment() {
             it.forEach { cat ->
                 chipGroup.addView(createChip(cat))
             }
-            getProductList("All")
+            getProductList(Category("All", "All"))
         })
 
         if (citiesViewModel.cities.value == null) {
@@ -98,15 +98,17 @@ class FiltersFragment : Fragment() {
         chip.setOnClickListener {
             Log.i("CHIPS", chip.text as String? + " | " + chip.id + "|" + chip.tag)
 
-           getProductList(chip.tag.toString())
+           getProductList(Category(category.id, category.name))
 
         }
         return chip
     }
 
-    private fun getProductList(categoryId: String) {
+    private fun getProductList(category: Category) {
         val listFragment = ListFragment.newInstance()
-        comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY_ID, categoryId, listFragment)
+//        comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY_ID, category.id.toString(), listFragment)
+//        comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY_TEXT, category.name.toString(), listFragment)
+        comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY, category, listFragment)
 
     }
 

@@ -30,6 +30,11 @@ class ProductsViewModel : ViewModel() {
     val products: LiveData<List<Product>>
         get() = _products
 
+    private val _product = MutableLiveData<Product>()
+    val product: LiveData<Product>
+        get() = _product
+
+
     private val _categories = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>>
         get() = _categories
@@ -75,13 +80,36 @@ class ProductsViewModel : ViewModel() {
     }
 
 
-    fun fetchProducts(categoryId: String) {
+    fun getProduct(productId: String, categoryId: String) {
+        val dbProducts =
+            FirebaseDatabase.getInstance().getReference(NODE_CATEGORIES).child(categoryId)
+                .child(NODE_PRODUCTS).child(productId)
 
-        if (categoryId != "All") {
-            dbCategories = dbCategories.child(categoryId).ref
+        dbProducts.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(productSnapshot: DataSnapshot) {
+               if (productSnapshot.exists()) {
+                   val product = productSnapshot.getValue(Product::class.java)
+                   product?.id = productSnapshot.key
+                   product?.categoryId = categoryId
+
+                   _product.value = product
+               }
+            }
+
+        })
+    }
+
+    fun fetchProducts(category: Category) {
+
+        if (category.name != "All") {
+            dbCategories = dbCategories.child(category.id!!).ref
 
 
-            dbCategories.addListenerForSingleValueEvent(object : ValueEventListener{
+            dbCategories.addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(error: DatabaseError) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
@@ -91,7 +119,7 @@ class ProductsViewModel : ViewModel() {
                         val products = mutableListOf<Product>()
 
                         var productsRef = snapShot.child(NODE_PRODUCTS).ref
-                        productsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                        productsRef.addValueEventListener(object : ValueEventListener {
                             override fun onCancelled(p0: DatabaseError) {
                                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                             }
@@ -126,7 +154,7 @@ class ProductsViewModel : ViewModel() {
         }
 
 else {
-            dbCategories.addListenerForSingleValueEvent(object : ValueEventListener{
+            dbCategories.addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(error: DatabaseError) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
@@ -136,7 +164,7 @@ else {
                         val products = mutableListOf<Product>()
                         for (categorySnapshot in snapShot.children) {
                             var productsRef = categorySnapshot.child(NODE_PRODUCTS).ref
-                            productsRef.addListenerForSingleValueEvent(object : ValueEventListener{
+                            productsRef.addValueEventListener(object : ValueEventListener{
                                 override fun onCancelled(p0: DatabaseError) {
                                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                                 }

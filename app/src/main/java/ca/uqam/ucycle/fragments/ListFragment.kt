@@ -36,6 +36,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
     private val products = mutableListOf<Product>()
     private lateinit var productsViewModel: ProductsViewModel
     private lateinit var productList: RecyclerView
+    private lateinit var category: Category
     lateinit var comm: Communicator
 
 
@@ -56,7 +57,13 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         initializeRecyclerView(productList)
 
         comm = activity as Communicator
-        productsViewModel = ViewModelProviders.of(this).get(ProductsViewModel::class.java)
+
+
+        category = if (arguments?.getParcelable<Category>(EXTRA_SELECTED_CATEGORY) == null)
+            Category("All", "All")
+        else arguments?.getParcelable(EXTRA_SELECTED_CATEGORY)!!
+
+
         return rootView
 
     }
@@ -67,14 +74,17 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         super.onViewCreated(view, savedInstanceState)
         Log.i("onViewCreated", "Called")
 
+        productsViewModel = ViewModelProviders.of(this).get(ProductsViewModel::class.java)
 
 
+//        var categoryId = if (arguments?.getString(EXTRA_SELECTED_CATEGORY_ID) == null)  "All" else arguments?.getString(EXTRA_SELECTED_CATEGORY_ID)
+//        var categoryName = if (arguments?.getString(EXTRA_SELECTED_CATEGORY_TEXT) == null)  "All" else arguments?.getString(EXTRA_SELECTED_CATEGORY_TEXT)
 
-        var categoryId = if (arguments?.getString(EXTRA_SELECTED_CATEGORY_ID) == null)  "All" else arguments?.getString(EXTRA_SELECTED_CATEGORY_ID)
-        Log.i("categoryId", categoryId)
+
+        Log.i("categoryId", category.id)
 
 
-        productsViewModel.fetchProducts(categoryId!!)
+        productsViewModel.fetchProducts(category)
 
 
         productsViewModel.products.observe(viewLifecycleOwner, Observer {
@@ -111,7 +121,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
     override fun onProductSelected(product: Product) {
         Log.i("CLICK", product.title)
         val productDetailFragment = ProductDetailFragment()
-        comm.passDataCom(ProductDetailFragment.EXTRA_PRODUCT_TITLE, product.title!!, productDetailFragment)
+        comm.passDataCom(ProductDetailFragment.EXTRA_PRODUCT, product, productDetailFragment)
 
     }
 
@@ -130,6 +140,8 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
     companion object {
         fun newInstance(): ListFragment = ListFragment()
         const val EXTRA_SELECTED_CATEGORY_ID= "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY_ID"
+        const val EXTRA_SELECTED_CATEGORY_TEXT= "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY_TEXT"
+        const val EXTRA_SELECTED_CATEGORY= "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY"
     }
 
 }
