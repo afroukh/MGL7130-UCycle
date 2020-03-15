@@ -5,10 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ca.uqam.ucycle.R
-import ca.uqam.ucycle.models.Product
+import ca.uqam.ucycle.data.Product
+
 import ca.uqam.ucycle.viewHolders.ProductViewHolder
 
-class ListAdapter(private val list: List<Product>, private val listListener: ListListener)
+class ListAdapter(private var list: List<Product>, private val listListener: ListListener)
     : RecyclerView.Adapter<ProductViewHolder>(), View.OnClickListener {
 
 
@@ -23,6 +24,7 @@ class ListAdapter(private val list: List<Product>, private val listListener: Lis
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+
         val product: Product = list[position]
         holder.itemView.setOnClickListener(this@ListAdapter)
         holder.bind(product)

@@ -4,10 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ca.uqam.ucycle.data.NODE_CATEGORIES
-import ca.uqam.ucycle.data.NODE_IMAGES
-import ca.uqam.ucycle.data.Product
-import ca.uqam.ucycle.data.NODE_PRODUCTS
+import ca.uqam.ucycle.data.*
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.DataSnapshot
@@ -23,7 +20,7 @@ import java.lang.Exception
 class ProductsViewModel : ViewModel() {
 
     private val dbProducts = FirebaseDatabase.getInstance().getReference(NODE_PRODUCTS)
-    private val dbCategories = FirebaseDatabase.getInstance().getReference(NODE_CATEGORIES)
+    private var dbCategories = FirebaseDatabase.getInstance().getReference(NODE_CATEGORIES)
 
 
     private val storageRef: StorageReference =
@@ -33,9 +30,14 @@ class ProductsViewModel : ViewModel() {
     val products: LiveData<List<Product>>
         get() = _products
 
+    private val _categories = MutableLiveData<List<Category>>()
+    val categories: LiveData<List<Category>>
+        get() = _categories
+
     private val _result = MutableLiveData<Exception?>()
     val result: LiveData<Exception?>
         get() = _result
+
 
     fun addProduct(product: Product, categoryId: String, filePath: Uri) {
 
@@ -72,25 +74,102 @@ class ProductsViewModel : ViewModel() {
 
     }
 
-    fun fetchProducts() {
-        dbProducts.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
 
-            override fun onDataChange(snapShot: DataSnapshot) {
-                if (snapShot.exists()) {
-                    val products = mutableListOf<Product>()
-                    for (productSnapshot in snapShot.children) {
-                        val product = productSnapshot.getValue(Product::class.java)
-                        product?.id = productSnapshot.key
-                        product?.let { products.add(it) }
-                    }
-                    _products.value = products
+    fun fetchProducts(categoryId: String) {
+
+        if (categoryId != "All") {
+            dbCategories = dbCategories.child(categoryId).ref
+
+
+            dbCategories.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
-            }
 
-        })
+                override fun onDataChange(snapShot: DataSnapshot) {
+                    if (snapShot.exists()) {
+                        val products = mutableListOf<Product>()
+
+                        var productsRef = snapShot.child(NODE_PRODUCTS).ref
+                        productsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onCancelled(p0: DatabaseError) {
+                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                            }
+
+                            override fun onDataChange(productsSnapshot: DataSnapshot) {
+                                if (productsSnapshot.exists()) {
+                                    for (productSnapshot in productsSnapshot.children) {
+                                        val product = productSnapshot.getValue(Product::class.java)
+                                        product?.id = productSnapshot.key
+                                        product?.categoryId = snapShot.key
+                                        product?.let { products.add(it) }
+//                                        products.add(Product(id = productSnapshot.key,title = product?.title, description = product?.description,
+//                                            categoryId = product?.categoryId, localisation = product?.localisation, urlImage = product?.urlImage))
+                                    }
+                                    _products.value = products
+                                }
+
+                            }
+
+
+                        })
+
+
+
+
+                    }
+
+                }})
+
+
+
+        }
+
+else {
+            dbCategories.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onDataChange(snapShot: DataSnapshot) {
+                    if (snapShot.exists()) {
+                        val products = mutableListOf<Product>()
+                        for (categorySnapshot in snapShot.children) {
+                            var productsRef = categorySnapshot.child(NODE_PRODUCTS).ref
+                            productsRef.addListenerForSingleValueEvent(object : ValueEventListener{
+                                override fun onCancelled(p0: DatabaseError) {
+                                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                }
+
+                                override fun onDataChange(productsSnapshot: DataSnapshot) {
+                                    if (productsSnapshot.exists()) {
+                                        for(productSnapshot in productsSnapshot.children) {
+                                            val product = productSnapshot.getValue(Product::class.java)
+                                            product?.id = productSnapshot.key
+                                            product?.categoryId = categorySnapshot.key
+                                            product?.let { products.add(it)}
+//                                        products.add(Product(id = productSnapshot.key,title = product?.title, description = product?.description,
+//                                            categoryId = product?.categoryId, localisation = product?.localisation, urlImage = product?.urlImage))
+                                        }
+                                    }
+
+                                }
+
+
+                            })
+
+                        }
+                        _products.value = products
+                    }
+                }
+
+            })
+        }
+
+
+
     }
+
+
 
 }

@@ -9,11 +9,13 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ca.uqam.ucycle.Communicator
 import ca.uqam.ucycle.R
 import ca.uqam.ucycle.data.Category
+import ca.uqam.ucycle.data.City
 import ca.uqam.ucycle.viewModels.CategoriesViewModel
 import ca.uqam.ucycle.viewModels.CitiesViewModel
 import com.google.android.material.chip.Chip
@@ -33,6 +35,8 @@ class FiltersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        var rootView = inflater.inflate(R.layout.fragment_filters, container, false)
         comm = activity as Communicator
 
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
@@ -40,36 +44,13 @@ class FiltersFragment : Fragment() {
 
 
 
-        return inflater.inflate(R.layout.fragment_filters, container, false)
+        return rootView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val adapter = ArrayAdapter<String>(activity,  android.R.layout.simple_list_item_1)
 
-//        listOf(
-//            City(name = "Montreal"),
-//                    City(name = "Toronto"),
-//                    City(name = "Calgary"),
-//                    City(name = "Vancouver"),
-//                    City(name = "Ottawa"),
-//                    City(name = "Quebec"),
-//                    City(name = "Saskatchewan"),
-//                    City(name = "Halifax"),
-//                    City(name = "Moncton"),
-//                    City(name = "Saint-John")
-//        ).forEach {
-//            citiesViewModel.addCity(it)
-//        }
-
-//        listOf(
-//            Category(name = "Pets"),
-//            Category(name = "Electronic"),
-//            Category(name = "Furniture"),
-//            Category(name = "Vintage")
-//        ).forEach {
-//            categoriesViewModel.addCategory(it)
-//        }
 
 
         var chipGroup = view?.findViewById<ChipGroup>(R.id.category_chip_group)
@@ -82,8 +63,8 @@ class FiltersFragment : Fragment() {
         categoriesViewModel.categories.observe(viewLifecycleOwner, Observer {
             it.forEach { cat ->
                 chipGroup.addView(createChip(cat))
-//                categoriesHashMap[cat.name.toString()] = cat.id.toString()
             }
+            getProductList("All")
         })
 
         if (citiesViewModel.cities.value == null) {
@@ -101,6 +82,8 @@ class FiltersFragment : Fragment() {
         var actv = view?.findViewById<AutoCompleteTextView>(R.id.cities)
         actv?.setAdapter(adapter)
 
+
+
     }
 
 
@@ -115,16 +98,46 @@ class FiltersFragment : Fragment() {
         chip.setOnClickListener {
             Log.i("CHIPS", chip.text as String? + " | " + chip.id + "|" + chip.tag)
 
-                val listFragment = ListFragment()
-                comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY_ID, chip.tag.toString(), listFragment)
+           getProductList(chip.tag.toString())
 
         }
         return chip
     }
 
+    private fun getProductList(categoryId: String) {
+        val listFragment = ListFragment.newInstance()
+        comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY_ID, categoryId, listFragment)
+
+    }
+
+    private fun seedData() {
+        listOf(
+            City(name = "Montreal"),
+                    City(name = "Toronto"),
+                    City(name = "Calgary"),
+                    City(name = "Vancouver"),
+                    City(name = "Ottawa"),
+                    City(name = "Quebec"),
+                    City(name = "Saskatchewan"),
+                    City(name = "Halifax"),
+                    City(name = "Moncton"),
+                    City(name = "Saint-John")
+        ).forEach {
+            citiesViewModel.addCity(it)
+        }
+
+        listOf(
+            Category(name = "Pets"),
+            Category(name = "Electronic"),
+            Category(name = "Furniture"),
+            Category(name = "Vintage")
+        ).forEach {
+            categoriesViewModel.addCategory(it)
+        }
+    }
+
     companion object {
         fun newInstance(): FiltersFragment = FiltersFragment()
-        var categoriesHashMap: MutableMap<String, String> = mutableMapOf()
     }
 
 

@@ -15,12 +15,12 @@
 <FrameLayout
     android:id="@+id/collection_wrapper"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
         <fragment
             android:id="@+id/collection_list"
             android:name="ca.uqam.ucycle.fragments.ListFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 </FrameLayout>
 
 

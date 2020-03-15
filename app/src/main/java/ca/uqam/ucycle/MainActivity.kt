@@ -2,7 +2,10 @@ package ca.uqam.ucycle
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBar
+import androidx.core.view.isEmpty
+import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.fragments.AlbumsFragment
 import ca.uqam.ucycle.fragments.ArtistsFragment
@@ -81,9 +84,21 @@ class MainActivity : AppCompatActivity(), Communicator {
     }
 
     private fun openFragment2(fragment: Fragment) {
+       var frameLayout = findViewById<FrameLayout>(R.id.collection_wrapper)
+
+
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.collection_wrapper, fragment)
-        transaction.addToBackStack(null)
+
+
+       //     transaction.add(R.id.collection_wrapper, fragment)
+
+            transaction.replace(R.id.collection_wrapper, fragment)
+
+
+
+
+
+       // transaction.addToBackStack(null)
         transaction.commit()
     }
 }
