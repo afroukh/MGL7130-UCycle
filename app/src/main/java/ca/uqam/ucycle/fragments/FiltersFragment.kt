@@ -106,8 +106,6 @@ class FiltersFragment : Fragment() {
 
     private fun getProductList(category: Category) {
         val listFragment = ListFragment.newInstance()
-//        comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY_ID, category.id.toString(), listFragment)
-//        comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY_TEXT, category.name.toString(), listFragment)
         comm.passDataCom2(ListFragment.EXTRA_SELECTED_CATEGORY, category, listFragment)
 
     }

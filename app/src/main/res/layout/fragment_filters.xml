@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/filters_wrapper"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -37,7 +38,8 @@
             android:id="@+id/category_chip_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:selectionRequired="true">
 
         </com.google.android.material.chip.ChipGroup>
 

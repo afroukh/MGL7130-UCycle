@@ -37,7 +37,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
     private lateinit var productsViewModel: ProductsViewModel
     private lateinit var productList: RecyclerView
     private lateinit var category: Category
-    lateinit var comm: Communicator
+    private lateinit var comm: Communicator
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,11 +76,6 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
         productsViewModel = ViewModelProviders.of(this).get(ProductsViewModel::class.java)
 
-
-//        var categoryId = if (arguments?.getString(EXTRA_SELECTED_CATEGORY_ID) == null)  "All" else arguments?.getString(EXTRA_SELECTED_CATEGORY_ID)
-//        var categoryName = if (arguments?.getString(EXTRA_SELECTED_CATEGORY_TEXT) == null)  "All" else arguments?.getString(EXTRA_SELECTED_CATEGORY_TEXT)
-
-
         Log.i("categoryId", category.id)
 
 
@@ -93,7 +88,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         // set the custom adapter to the RecyclerView
         productList.adapter = ListAdapter(it, this@ListFragment)
 
-//        productList.adapter!!.notifyDataSetChanged()
+        productList.adapter!!.notifyDataSetChanged()
 
         })
 
@@ -139,8 +134,6 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
     companion object {
         fun newInstance(): ListFragment = ListFragment()
-        const val EXTRA_SELECTED_CATEGORY_ID= "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY_ID"
-        const val EXTRA_SELECTED_CATEGORY_TEXT= "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY_TEXT"
         const val EXTRA_SELECTED_CATEGORY= "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY"
     }
 
