@@ -1,5 +1,6 @@
 package ca.uqam.ucycle.fragments
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.ProgressDialog
 import android.content.Intent
@@ -14,16 +15,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import ca.uqam.ucycle.R
-import ca.uqam.ucycle.data.Category
+
 import ca.uqam.ucycle.data.Product
 import ca.uqam.ucycle.viewModels.CategoriesViewModel
 import ca.uqam.ucycle.viewModels.ProductsViewModel
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_post_product.view.*
+import ca.uqam.ucycle.utils.GpsTracker
+import ca.uqam.ucycle.R
+import android.content.Context
+import android.location.Geocoder
+import java.util.*
 
 
 class PostProductFragment : Fragment() {
@@ -70,7 +76,7 @@ class PostProductFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val adapter = ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1)
-
+        activity?.let { ActivityCompat.requestPermissions(it,  arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 123) }
         if (categoriesViewModel.categories.value == null) {
             categoriesViewModel.fetchCategories()
         }
@@ -83,7 +89,7 @@ class PostProductFragment : Fragment() {
                 }
         })
 
-        autoCompleteCategories = view!!.findViewById(R.id.post_category_autocomplete)
+        autoCompleteCategories = view!!.findViewById(ca.uqam.ucycle.R.id.post_category_autocomplete)
         autoCompleteCategories.setAdapter(adapter)
 
 
@@ -97,6 +103,26 @@ class PostProductFragment : Fragment() {
 
         imageProduct.setOnClickListener {
             showFileChooser()
+        }
+
+        btnLocalisation.setOnClickListener {
+            val gt = activity?.applicationContext?.let { it1 -> GpsTracker(it1) }
+            var l = gt?.location
+            if( l == null){
+                Toast.makeText(activity?.applicationContext,"GPS unable to get Value",Toast.LENGTH_SHORT).show()
+            }else {
+                // test with montréal: 45.511963, -73.589755
+                var lat = l.latitude
+                var lon = l.longitude
+
+                var geoCoder = Geocoder(activity, Locale.getDefault())
+                var addresses = geoCoder.getFromLocation(lat.toDouble(),lon.toDouble(), 1)
+                var adress: String = addresses[0].getAddressLine(0)
+                var myCity =  addresses[0].locality
+                var arrp = adress.toString().split(",")
+                productLocalisationInput.setText(arrp[1])
+
+            }
         }
 
         btnSendProduct.setOnClickListener {
