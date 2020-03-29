@@ -4,15 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBar
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.data.Category
 import ca.uqam.ucycle.data.Product
-import ca.uqam.ucycle.fragments.AlbumsFragment
-import ca.uqam.ucycle.fragments.ArtistsFragment
+import ca.uqam.ucycle.fragments.FavoritFragment
+import ca.uqam.ucycle.fragments.ProfilFragment
 import ca.uqam.ucycle.fragments.HomeFragment
-import ca.uqam.ucycle.fragments.PostProductFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), Communicator {
@@ -62,16 +59,16 @@ class MainActivity : AppCompatActivity(), Communicator {
                 openFragment(homeFragment)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_albums -> {
-                toolbar.title = "Albums"
-                val albumsFragment = AlbumsFragment.newInstance()
-                openFragment(albumsFragment)
+            R.id.navigation_favorit -> {
+                toolbar.title = "Favorit"
+                val favoritFragment = FavoritFragment.newInstance()
+                openFragment(favoritFragment)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_artists -> {
-                  toolbar.title = "Artists"
-                val artistsFragment = ArtistsFragment.newInstance()
-                openFragment(artistsFragment)
+            R.id.navigation_profil -> {
+                  toolbar.title = "Profil"
+                val ProfilFragment = ProfilFragment.newInstance()
+                openFragment(ProfilFragment)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -89,7 +86,7 @@ class MainActivity : AppCompatActivity(), Communicator {
 
         val transaction = supportFragmentManager.beginTransaction()
 
-        var frame = findViewById<FrameLayout>(R.id.collection_wrapper)
+        val frame = findViewById<FrameLayout>(R.id.collection_wrapper)
         if (supportFragmentManager.findFragmentById(R.id.collection_wrapper) != null) {
             frame.removeAllViews()
         }
