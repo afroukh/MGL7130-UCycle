@@ -54,7 +54,7 @@ class ProductDetailFragment : Fragment() {
 
 
 
-                //    val product = products.find { x -> x.title == title }
+                //    val product = products.find { a -> a.title == title }
 
 
 //        mPhotoView.setOnClickListener{
