@@ -6,12 +6,12 @@
         android:title="Home"/>
 
     <item
-        android:id="@+id/navigation_albums"
+        android:id="@+id/navigation_favorite"
         android:icon="@android:drawable/ic_lock_idle_alarm"
-        android:title="Albums"/>
+        android:title="favorite"/>
 
     <item
-        android:id="@+id/navigation_artists"
+        android:id="@+id/navigation_profile"
         android:icon="@android:drawable/ic_input_get"
-        android:title="Artists"/>
+        android:title="profile"/>
 </menu>

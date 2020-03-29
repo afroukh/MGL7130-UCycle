@@ -4,15 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBar
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.data.Category
 import ca.uqam.ucycle.data.Product
-import ca.uqam.ucycle.fragments.AlbumsFragment
-import ca.uqam.ucycle.fragments.ArtistsFragment
+import ca.uqam.ucycle.fragments.profileFragment
 import ca.uqam.ucycle.fragments.HomeFragment
-import ca.uqam.ucycle.fragments.PostProductFragment
+import ca.uqam.ucycle.fragments.favoriteFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), Communicator {
@@ -62,16 +59,16 @@ class MainActivity : AppCompatActivity(), Communicator {
                 openFragment(homeFragment)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_albums -> {
-                toolbar.title = "Albums"
-                val albumsFragment = AlbumsFragment.newInstance()
+            R.id.navigation_favorite -> {
+                toolbar.title = "favorite"
+                val albumsFragment = favoriteFragment.newInstance()
                 openFragment(albumsFragment)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_artists -> {
-                  toolbar.title = "Artists"
-                val artistsFragment = ArtistsFragment.newInstance()
-                openFragment(artistsFragment)
+            R.id.navigation_profile -> {
+                  toolbar.title = "profile"
+                val profileFragment = profileFragment.newInstance()
+                openFragment(profileFragment)
                 return@OnNavigationItemSelectedListener true
             }
         }
