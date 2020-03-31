@@ -57,6 +57,7 @@ class PostProductFragment : Fragment() {
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         productsViewModel = ViewModelProviders.of(this).get(ProductsViewModel::class.java)
 
+        activity?.title = "Add new ad"
         var rootView = inflater.inflate(R.layout.fragment_post_product, container, false)
         productTitleInput = rootView.findViewById(R.id.product_title_input)
         productDescriptionInput = rootView.findViewById(R.id.product_description_input)
