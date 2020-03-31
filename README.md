@@ -27,5 +27,5 @@ Fonctionnalité non encore implémentée :
 -	Les filtres manquants.
 
 Bugs :
-La liste des annonces s’affiche juste lors du premier chargement de l’application, même si le filtre « All » utilise la même méthode du premier chargement, il retourne toujours nulle, les autres filtres fonctionnent bien.
+La liste des annonces s’affiche juste lors du premier chargement de l’application, même si le filtre « All » utilise la même méthode du premier chargement, il retourne toujours nulle, ce qui cause aussi une bug dans la rotation, les autres filtres fonctionnent bien.
 
