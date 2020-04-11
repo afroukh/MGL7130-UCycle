@@ -42,7 +42,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
+       // retainInstance = true
     }
 
 
