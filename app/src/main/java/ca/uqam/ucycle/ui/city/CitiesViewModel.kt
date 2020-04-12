@@ -1,10 +1,10 @@
-package ca.uqam.ucycle.viewModels
+package ca.uqam.ucycle.ui.city
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ca.uqam.ucycle.data.City
-import ca.uqam.ucycle.data.NODE_CITIES
+import ca.uqam.ucycle.models.City
+import ca.uqam.ucycle.models.NODE_CITIES
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase

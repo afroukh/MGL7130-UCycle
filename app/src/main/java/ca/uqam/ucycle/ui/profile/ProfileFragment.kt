@@ -1,4 +1,5 @@
-package ca.uqam.ucycle.fragments
+package ca.uqam.ucycle.ui.profile
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ca.uqam.ucycle.R
 
-class FavoritFragment : Fragment() {
+class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_favorit, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_profil, container, false)
 
     companion object {
-        fun newInstance(): FavoritFragment = FavoritFragment()
+        fun newInstance(): ProfileFragment =
+            ProfileFragment()
     }
 }

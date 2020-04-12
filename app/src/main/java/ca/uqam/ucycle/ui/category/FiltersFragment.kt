@@ -1,4 +1,4 @@
-package ca.uqam.ucycle.fragments
+package ca.uqam.ucycle.ui.category
 
 import android.os.Bundle
 import android.util.Log
@@ -9,15 +9,14 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import ca.uqam.ucycle.Communicator
+import ca.uqam.ucycle.utils.Communicator
 import ca.uqam.ucycle.R
-import ca.uqam.ucycle.data.Category
-import ca.uqam.ucycle.data.City
-import ca.uqam.ucycle.viewModels.CategoriesViewModel
-import ca.uqam.ucycle.viewModels.CitiesViewModel
+import ca.uqam.ucycle.models.Category
+import ca.uqam.ucycle.models.City
+import ca.uqam.ucycle.ui.product.ListFragment
+import ca.uqam.ucycle.ui.city.CitiesViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -113,15 +112,15 @@ class FiltersFragment : Fragment() {
     private fun seedData() {
         listOf(
             City(name = "Montreal"),
-                    City(name = "Toronto"),
-                    City(name = "Calgary"),
-                    City(name = "Vancouver"),
-                    City(name = "Ottawa"),
-                    City(name = "Quebec"),
-                    City(name = "Saskatchewan"),
-                    City(name = "Halifax"),
-                    City(name = "Moncton"),
-                    City(name = "Saint-John")
+            City(name = "Toronto"),
+            City(name = "Calgary"),
+            City(name = "Vancouver"),
+            City(name = "Ottawa"),
+            City(name = "Quebec"),
+            City(name = "Saskatchewan"),
+            City(name = "Halifax"),
+            City(name = "Moncton"),
+            City(name = "Saint-John")
         ).forEach {
             citiesViewModel.addCity(it)
         }
@@ -137,7 +136,8 @@ class FiltersFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): FiltersFragment = FiltersFragment()
+        fun newInstance(): FiltersFragment =
+            FiltersFragment()
     }
 
 

@@ -1,4 +1,4 @@
-package ca.uqam.ucycle.fragments
+package ca.uqam.ucycle.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +15,7 @@ class HomeFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     companion object {
-        fun newInstance(): HomeFragment = HomeFragment()
+        fun newInstance(): HomeFragment =
+            HomeFragment()
     }
 }

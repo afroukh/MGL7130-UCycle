@@ -1,15 +1,17 @@
-package ca.uqam.ucycle
+package ca.uqam.ucycle.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
-import ca.uqam.ucycle.data.Category
-import ca.uqam.ucycle.data.Product
-import ca.uqam.ucycle.fragments.FavoritFragment
-import ca.uqam.ucycle.fragments.ProfilFragment
-import ca.uqam.ucycle.fragments.HomeFragment
+import ca.uqam.ucycle.R
+import ca.uqam.ucycle.models.Category
+import ca.uqam.ucycle.models.Product
+import ca.uqam.ucycle.ui.favorite.FavoritFragment
+import ca.uqam.ucycle.ui.profile.ProfileFragment
+import ca.uqam.ucycle.ui.home.HomeFragment
+import ca.uqam.ucycle.utils.Communicator
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), Communicator {
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity(), Communicator {
             }
             R.id.navigation_profil -> {
                   toolbar.title = "Profil"
-                val ProfilFragment = ProfilFragment.newInstance()
+                val ProfilFragment = ProfileFragment.newInstance()
                 openFragment(ProfilFragment)
                 return@OnNavigationItemSelectedListener true
             }

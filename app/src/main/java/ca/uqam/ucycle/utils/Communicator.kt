@@ -1,8 +1,8 @@
-package ca.uqam.ucycle
+package ca.uqam.ucycle.utils
 
 import androidx.fragment.app.Fragment
-import ca.uqam.ucycle.data.Category
-import ca.uqam.ucycle.data.Product
+import ca.uqam.ucycle.models.Category
+import ca.uqam.ucycle.models.Product
 
 interface Communicator {
 //    fun passDataCom(title: String)

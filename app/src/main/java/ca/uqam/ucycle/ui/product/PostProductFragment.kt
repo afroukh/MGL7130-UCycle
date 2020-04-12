@@ -1,8 +1,7 @@
-package ca.uqam.ucycle.fragments
+package ca.uqam.ucycle.ui.product
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -20,14 +19,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
-import ca.uqam.ucycle.data.Product
-import ca.uqam.ucycle.viewModels.CategoriesViewModel
-import ca.uqam.ucycle.viewModels.ProductsViewModel
+import ca.uqam.ucycle.models.Product
+import ca.uqam.ucycle.ui.category.CategoriesViewModel
 import com.google.android.material.button.MaterialButton
-import kotlinx.android.synthetic.main.fragment_post_product.view.*
 import ca.uqam.ucycle.utils.GpsTracker
 import ca.uqam.ucycle.R
-import android.content.Context
 import android.location.Geocoder
 import java.util.*
 
@@ -182,12 +178,15 @@ class PostProductFragment : Fragment() {
     private fun showFileChooser() {
         var intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        startActivityForResult(intent,
+            PICK_IMAGE_REQUEST
+        )
     }
 
 
     companion object {
-        fun newInstance(): PostProductFragment = PostProductFragment()
+        fun newInstance(): PostProductFragment =
+            PostProductFragment()
         private const val PICK_IMAGE_REQUEST = 123
     }
 }
