@@ -1,19 +1,13 @@
 package ca.uqam.ucycle.fragments
 
-import android.content.Intent
-import android.content.res.Configuration
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -23,12 +17,7 @@ import ca.uqam.ucycle.adapters.ListAdapter
 import ca.uqam.ucycle.data.Category
 import ca.uqam.ucycle.itemDecoration.SpacesItemDecoration
 import ca.uqam.ucycle.data.Product
-import ca.uqam.ucycle.repositories.ProductRepository
-import ca.uqam.ucycle.viewModels.CategoriesViewModel
 import ca.uqam.ucycle.viewModels.ProductsViewModel
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : Fragment(), ListAdapter.ListListener {
@@ -42,7 +31,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // retainInstance = true
+        // retainInstance = true
     }
 
 
@@ -78,21 +67,22 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
         Log.i("categoryId", category.id)
 
+        if (category.name == "All") {
+            productsViewModel.fetchAllProducts()
 
-        productsViewModel.fetchProducts(category)
+        } else {
+            productsViewModel.fetchProducts(category)
+        }
 
 
-        productsViewModel.products.observe(viewLifecycleOwner, Observer {
+        productsViewModel.products.observe(viewLifecycleOwner, Observer<List<Product>> {
 
+            // set the custom adapter to the RecyclerView
+            productList.adapter = ListAdapter(it, this@ListFragment)
 
-        // set the custom adapter to the RecyclerView
-        productList.adapter = ListAdapter(it, this@ListFragment)
-
-        productList.adapter!!.notifyDataSetChanged()
+            productList.adapter!!.notifyDataSetChanged()
 
         })
-
-
 
 
     }
@@ -100,17 +90,14 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-
-
         button_add_product.setOnClickListener {
 
             val transaction = activity!!.supportFragmentManager.beginTransaction()
             transaction.replace(R.id.container, PostProductFragment())
             transaction.addToBackStack(null)
             transaction.commit()
-            }
         }
+    }
 
 
     override fun onProductSelected(product: Product) {
@@ -125,7 +112,8 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
         // set a StaggeredGridLayoutManager to handle Android
         // RecyclerView behavior
         var spanCount = resources.getInteger(R.integer.gallery_columns)
-        recyclerView.layoutManager =  StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager =
+            StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
         val decoration = SpacesItemDecoration(16)
         recyclerView.addItemDecoration(decoration)
 
@@ -134,7 +122,7 @@ class ListFragment : Fragment(), ListAdapter.ListListener {
 
     companion object {
         fun newInstance(): ListFragment = ListFragment()
-        const val EXTRA_SELECTED_CATEGORY= "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY"
+        const val EXTRA_SELECTED_CATEGORY = "ca.uqam.ucycle.extras.EXTRA_SELECTED_CATEGORY"
     }
 
 }
