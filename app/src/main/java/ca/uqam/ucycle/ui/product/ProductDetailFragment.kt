@@ -1,4 +1,4 @@
-package ca.uqam.ucycle.fragments
+package ca.uqam.ucycle.ui.product
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ca.uqam.ucycle.R
-import ca.uqam.ucycle.data.Product
-import ca.uqam.ucycle.viewModels.ProductsViewModel
+import ca.uqam.ucycle.models.Product
 import com.bumptech.glide.Glide
 
 class ProductDetailFragment : Fragment() {
@@ -81,7 +80,8 @@ class ProductDetailFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): ProductDetailFragment = ProductDetailFragment()
+        fun newInstance(): ProductDetailFragment =
+            ProductDetailFragment()
         const val EXTRA_PRODUCT = "ca.uqam.ucycle.extras.EXTRA_PRODUCT"
     }
 }

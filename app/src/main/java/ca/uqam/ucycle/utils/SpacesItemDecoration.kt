@@ -1,4 +1,4 @@
-package ca.uqam.ucycle.itemDecoration
+package ca.uqam.ucycle.utils
 
 
 import android.graphics.Rect

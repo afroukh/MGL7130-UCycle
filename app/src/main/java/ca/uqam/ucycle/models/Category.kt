@@ -1,4 +1,4 @@
-package ca.uqam.ucycle.data
+package ca.uqam.ucycle.models
 
 import android.os.Parcel
 import android.os.Parcelable

@@ -1,13 +1,11 @@
-package ca.uqam.ucycle.adapters
+package ca.uqam.ucycle.ui.product
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ca.uqam.ucycle.R
-import ca.uqam.ucycle.data.Product
-
-import ca.uqam.ucycle.viewHolders.ProductViewHolder
+import ca.uqam.ucycle.models.Product
 
 class ListAdapter(private var list: List<Product>, private val listListener: ListListener)
     : RecyclerView.Adapter<ProductViewHolder>(), View.OnClickListener {

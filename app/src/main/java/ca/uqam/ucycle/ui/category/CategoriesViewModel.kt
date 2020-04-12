@@ -1,10 +1,10 @@
-package ca.uqam.ucycle.viewModels
+package ca.uqam.ucycle.ui.category
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ca.uqam.ucycle.data.Category
-import ca.uqam.ucycle.data.NODE_CATEGORIES
+import ca.uqam.ucycle.models.Category
+import ca.uqam.ucycle.models.NODE_CATEGORIES
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase

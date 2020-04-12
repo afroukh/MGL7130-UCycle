@@ -1,4 +1,4 @@
-package ca.uqam.ucycle.data
+package ca.uqam.ucycle.models
 
 import com.google.firebase.database.Exclude
 

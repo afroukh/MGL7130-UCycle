@@ -8,7 +8,7 @@
 
         <fragment
             android:id="@+id/filters_fragment"
-            android:name="ca.uqam.ucycle.fragments.FiltersFragment"
+            android:name="ca.uqam.ucycle.ui.category.FiltersFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -18,7 +18,7 @@
     android:layout_height="wrap_content">
         <fragment
             android:id="@+id/collection_list"
-            android:name="ca.uqam.ucycle.fragments.ListFragment"
+            android:name="ca.uqam.ucycle.ui.product.ListFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 </FrameLayout>
