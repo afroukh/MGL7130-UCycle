@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), Communicator {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_favorit -> {
-                toolbar.title = "Favorit"
+                toolbar.title = "Favorite"
                 val favoritFragment = FavoritFragment.newInstance()
                 openFragment(favoritFragment)
                 return@OnNavigationItemSelectedListener true
