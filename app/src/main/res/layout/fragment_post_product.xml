@@ -2,60 +2,97 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fragmentBackground">
+    android:background="@color/fragmentBackground"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/product_post_image"
         android:layout_marginTop="10dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
             android:background="@color/fragmentBackground">
+
             <ImageView
                 android:id="@+id/post_product_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
-                android:background="@drawable/ic_camera_alt_black_24dp">
-            </ImageView>
+                android:background="@drawable/ic_camera_alt_black_24dp" />
+
         </LinearLayout>
-    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:gravity="center|bottom"
+            android:weightSum="10">
+
+            <Button
+                android:id="@+id/btn_pic_camera"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="4"
+                android:text="@string/btn_camera"
+                android:backgroundTint="@color/light_grey">
+
+            </Button>
+
+            <Button
+                android:id="@+id/btn_pic_gallery"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="4"
+                android:text="@string/btn_gallery"
+                android:backgroundTint="@color/light_grey">
+
+            </Button>
+
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
+
         <EditText
             android:id="@+id/product_title_input"
+            style="@style/PostProductInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/PostProductInputText"
-            android:hint="@string/product_title"
             android:layout_marginTop="20dp"
-            android:inputType="text"
-          />
+            android:hint="@string/product_title"
+            android:inputType="text" />
 
         <AutoCompleteTextView
             android:id="@+id/post_category_autocomplete"
+            style="@style/PostProductInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/PostProductInputText"
             android:hint="@string/choose_category"
-            android:inputType="text"/>
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/product_description_input"
+            style="@style/PostProductInputText"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:hint="@string/product_description"
-            style="@style/PostProductInputText"
             android:inputType="text|textMultiLine" />
 
         <LinearLayout
@@ -66,29 +103,28 @@
 
             <EditText
                 android:id="@+id/product_localisation_input"
+                style="@style/PostProductInputText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/product_localisation"
-                android:inputType="text"
-                style="@style/PostProductInputText"
                 android:layout_marginTop="20dp"
-                android:layout_weight="8"/>
+                android:layout_weight="8"
+                android:hint="@string/product_localisation"
+                android:inputType="text" />
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="56dp"
                 android:id="@+id/btn_localisation"
-                android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                app:icon="@drawable/ic_location_on_black_16dp"
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:iconSize="24dp"
-                app:iconPadding="0dp"
                 android:insetLeft="4dp"
                 android:insetTop="0dp"
                 android:insetRight="4dp"
                 android:insetBottom="0dp"
-                app:shapeAppearanceOverlay="@style/buttonRounded"
-                />
+                app:icon="@drawable/ic_location_on_black_16dp"
+                app:iconPadding="0dp"
+                app:iconSize="24dp"
+                app:shapeAppearanceOverlay="@style/buttonRounded" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
