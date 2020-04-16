@@ -7,4 +7,5 @@
     <color name="fragmentBackground">#f8f8f8</color>
     <color name="yellowGreen">#90EE90</color>
     <color name="ic_launcher_background">#df6e57</color>
+    <color name="light_grey">#AAA7A7</color>
 </resources>

@@ -12,5 +12,7 @@
     <string name="product_localisation">Localisation</string>
     <string name="type_city">Type city</string>
     <string name="choose_category">Category</string>
+    <string name="btn_camera">CAMERA</string>
+    <string name="btn_gallery">GALLERY</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package ca.uqam.ucycle.ui.product
 
 import android.Manifest
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
@@ -25,6 +26,11 @@ import com.google.android.material.button.MaterialButton
 import ca.uqam.ucycle.utils.GpsTracker
 import ca.uqam.ucycle.R
 import android.location.Geocoder
+import android.os.Environment
+import androidx.core.content.FileProvider
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -32,17 +38,19 @@ class PostProductFragment : Fragment() {
 
     private lateinit var categoriesViewModel: CategoriesViewModel
     private lateinit var productsViewModel: ProductsViewModel
-
     private lateinit var productTitleInput: EditText
     private lateinit var autoCompleteCategories: AutoCompleteTextView
     private lateinit var productDescriptionInput: EditText
     private lateinit var productLocalisationInput: EditText
     private lateinit var imageProduct: ImageView
+    private lateinit var btnPicGallery: Button
+    private lateinit var btnPicCamera: Button
     private lateinit var btnLocalisation: MaterialButton
     private lateinit var btnSendProduct: MaterialButton
     private lateinit var filePath: Uri
     private var categoriesHashMap: MutableMap<String, String> = mutableMapOf()
     private var categoryId: String = ""
+    var currentPath: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +72,8 @@ class PostProductFragment : Fragment() {
         productDescriptionInput = rootView.findViewById(R.id.product_description_input)
         productLocalisationInput = rootView.findViewById(R.id.product_localisation_input)
         imageProduct = rootView.findViewById(R.id.post_product_image)
+        btnPicGallery = rootView.findViewById(R.id.btn_pic_gallery)
+        btnPicCamera = rootView.findViewById(R.id.btn_pic_camera)
         btnLocalisation = rootView.findViewById(R.id.btn_localisation)
         btnSendProduct = rootView.findViewById(R.id.btn_send_product)
 
@@ -103,8 +113,12 @@ class PostProductFragment : Fragment() {
             }
 
 
-        imageProduct.setOnClickListener {
+        btnPicGallery.setOnClickListener {
             showFileChooser()
+        }
+
+        btnPicCamera.setOnClickListener {
+            showCamera()
         }
 
         btnLocalisation.setOnClickListener {
@@ -165,15 +179,33 @@ class PostProductFragment : Fragment() {
             var bitmap: Bitmap =
                 MediaStore.Images.Media.getBitmap(activity?.contentResolver, filePath)
             imageProduct.setImageBitmap(bitmap)
-            imageProduct.background = null
-            var layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-            )
-            layoutParams.setMargins(0, 0, 0, 0)
-            imageProduct.layoutParams = layoutParams
+            adaptImage(imageProduct)
+        }
+
+        if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
+            try {
+                val file = File(currentPath)
+                filePath = Uri.fromFile(file)
+                imageProduct.setImageURI(filePath)
+                adaptImage(imageProduct)
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    private fun adaptImage(image: ImageView){
+        image.background = null
+        var layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        layoutParams.setMargins(0, 0, 0, 0)
+        imageProduct.layoutParams = layoutParams
+    }
+
 
     private fun showFileChooser() {
         var intent = Intent(Intent.ACTION_PICK)
@@ -183,10 +215,41 @@ class PostProductFragment : Fragment() {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.FROYO)
+    private fun showCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (intent.resolveActivity(activity!!.packageManager) != null) {
+            var photoFile: File? = null
+            try {
+                photoFile = createImage()
+            }catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+            if (photoFile != null) {
+                var photoUri = context?.let {
+                    FileProvider.getUriForFile(it, "ca.uqa.ucycle.fileprovider", photoFile) }
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                startActivityForResult(intent, TAKE_PICTURE)
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.FROYO)
+    private fun createImage(): File {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageName = "JPEG_" + timeStamp + "_"
+        var storageDir = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        var image = File.createTempFile(imageName, ".jpg", storageDir)
+        currentPath = image.absolutePath
+        return image
+    }
+
 
     companion object {
         fun newInstance(): PostProductFragment =
             PostProductFragment()
         private const val PICK_IMAGE_REQUEST = 123
+        private const val TAKE_PICTURE = 1
     }
 }
