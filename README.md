@@ -29,3 +29,20 @@ Fonctionnalité non encore implémentée :
 Bugs :
 La liste des annonces s’affiche juste lors du premier chargement de l’application, même si le filtre « All » utilise la même méthode du premier chargement, il retourne toujours nulle, ce qui cause aussi une bug dans la rotation, les autres filtres fonctionnent bien.
 
+Livrable 2:
+----------
+Travail fait:
+- Utilisation de l'Architecture des composants: Repositories + ViewModels + Views
+- Ajout d'un capteur supplémentaire : Caméra
+- les tests unitaires sur les ViewModels: un seul test sur le ProductViewModel qui échoue à cause du mocking difficile du LiveData
+
+Suite aux consignes données après le premier livrable:
+- Ajout du splash screen
+- Restructuration de l'application et ajout des packages
+
+Bug Corrigé:
+- Exception lancée lors de rotation d'un écran
+
+Bug non Corrigé:
+
+ - La liste de tous les annonces s’affiche juste lors du premier chargement de l’application
